@@ -1,20 +1,15 @@
 import React from "react";
 import './App.css';
-import Home from "./components/home.js"
-import Requirements from "./components/requirements.js"
-import Choices from "./components/choices.js"
-import {Routes, Route} from "react-router-dom"
+import Login from "./components/login.js";
+import Logout from "./components/logout.js";
 
 function App() {
   return (
     <div className = "App">
-      <Requirements/>
-      <Routes>
-        <Route exact path = "/" component = {Home} />
-        <Route exact path = "/requirements" component = {Requirements} />
-        <Route exact path = "/choices" component = {Choices} />
-      </Routes>
-      
+      <h1>test</h1>
+      <Login/>
+      <Logout/>
+      <h1>test</h1>
     </div>
   );
 }
