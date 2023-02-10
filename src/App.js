@@ -1,16 +1,25 @@
 import React from "react";
 import './App.css';
-import Login from "./components/login.js";
-import Logout from "./components/logout.js";
+import Start from './components/start';
+import Home from './components/home';
+import Choices from './components/choices';
+import Profile from './components/profile';
+import Requirements from './components/requirements';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className = "App">
-      <h1>test</h1>
-      <Login/>
-      <Logout/>
-      <h1>test</h1>
-    </div>
+      <Router>
+        <Routes>
+            <Route path='/' element={<Start />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/choices' element={<Choices />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/requirements' element={<Requirements />} />
+        </Routes>
+      </Router>
+      </div>
   );
 }
 
