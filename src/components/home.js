@@ -21,9 +21,9 @@ function Home() {
                 <input name="firstName" placeholder="First name" required/>
                 <input name="lastName" placeholder="Last name" required/>
             </form>
-            <Button id="submit">
-                <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>Submit</Link>
-            </Button>
+                <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>
+                    <Button id="submit">Submit</Button>
+                </Link>
         </div> 
     );
 }
