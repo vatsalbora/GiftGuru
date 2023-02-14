@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 
 const Button = styled.button`
-  padding: 20px 155px;
-  outline: 0;
+  padding: 20px 160px;
   cursor: pointer; 
   font-size: 26px;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: inline-flex;
+  align-items: center; 
 `
-
 
 function Requirements() {
   return (
