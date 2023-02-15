@@ -9,7 +9,7 @@ ReactDOM.render(
     domain="dev-ui5za6ruy46vzp05.us.auth0.com"
     clientId="htU6gq9uUlSSvBUgjf1q4TRAe1a4MbjM"
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin + "/home"
     }}
   >
     <App />
