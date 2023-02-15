@@ -1,14 +1,12 @@
 import React from "react";
 import Login from "./login.js";
-import Logout from "./logout.js";
 
 function Start() {
   return (
     <div className = "Start">
-      <h1>test</h1>
+      <h1>Welcome to GiftGuru</h1>
+      <p>Login to get started</p>
       <Login/>
-      <Logout/>
-      <h1>test</h1>
     </div>
   );
 }
