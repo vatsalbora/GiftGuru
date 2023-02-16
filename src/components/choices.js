@@ -39,6 +39,9 @@ const ImageGrid = () => {
       <h1>GiftGuru</h1>
       <p>Select what you think the gift recipient might like!</p>
       <LogoutButton/>
+      <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>
+        <button className="back">Back</button>
+      </Link>
       <div className="image-grid">
         {images.map((image, index) => (
           <div key={index}>

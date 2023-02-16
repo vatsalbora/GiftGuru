@@ -8,6 +8,9 @@ function Requirements() {
     <div className="page">
         <h1>GiftGuru</h1>
         <LogoutButton/>
+        <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
+          <button className="back">Back</button>
+        </Link>
         <form>
             <input name="name" placeholder="Recipient's Name" required />
             <input name="age" placeholder="Recipient's Age" required />

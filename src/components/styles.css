@@ -97,3 +97,16 @@ img {
   justify-content: center;
   align-items: center;
 }
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer; 
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: #fff;
+  background: #635dff;
+  width: 8rem;
+  height: 3rem;
+}
