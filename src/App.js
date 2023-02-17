@@ -5,7 +5,11 @@ import Home from './components/home';
 import Choices from './components/choices';
 import Profile from './components/profile';
 import Requirements from './components/requirements';
+import Recommendations from './components/recommendations';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Choices1 from './components/choices-temp';
+import Recommendations1 from './components/recommendations-temp';
 
 function App() {
   return (
@@ -17,6 +21,10 @@ function App() {
             <Route path='/choices' element={<Choices />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/requirements' element={<Requirements />} />
+            <Route path='/recommendations' element={<Recommendations />} />
+            
+            <Route path='/choices-temp' element={<Choices1 />} />
+            <Route path='/recommendations-temp' element={<Recommendations1 />} />
         </Routes>
       </Router>
       </div>
