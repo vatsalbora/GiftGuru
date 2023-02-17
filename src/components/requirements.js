@@ -15,7 +15,7 @@ function Requirements() {
             <input name="name" placeholder="Recipient's Name" required />
             <input name="age" placeholder="Recipient's Age" required />
             <select name="gender" required>
-              <option value="" disabled selected>Gender</option>
+              <option value="" disabled selected>Recipient's Gender</option>
               <option value="Female">Woman</option>
               <option value="Male">Man</option>
               <option value="Transgender">Transgender</option>
