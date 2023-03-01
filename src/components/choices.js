@@ -1,35 +1,37 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './styles.css';
 import LogoutButton from './logout.js';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+
 const ImageGrid = () => {
   const data = {
     state: ''
   };
-const baseUrl = 'https://duhynhz8i1.loclx.io';
-const [selectedImages, setSelectedImages] = useState([]);
 
-const updateData = async (data) => {
-  try {
-    const response = await axios.put(`${baseUrl}/seed`, data, {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    });  
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-let response = updateData(data);
-let images = [];
+  const baseUrl = 'https://duhynhz8i1.loclx.io';
+  var bodyFormData = new FormData();
+  bodyFormData.append('state', '');
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [pins, setPins] = useState();
 
-for (let i in response['pins']) {
-  let image = response['pins'][i];
-  image['id'] = i;
-  images.push(image);
-}
+  useEffect(() => {
+    axios.put("/seed").then(response => {
+        let images = [];
+        console.log('respose');
+        console.log(response.data);
+        for (let i in response.data['pins']) {
+          let image = response.data ['pins'][i];
+          image['id'] = i;
+          images.push(image);
+        }
+        console.log(images);
+        setPins(images);
+        setLoading(false);
+    }, bodyFormData);
+  }, []);
+
 
   const checkmark = require("../images/checkmark.png");
 
@@ -39,8 +41,11 @@ for (let i in response['pins']) {
     } else {
       setSelectedImages([...selectedImages, index]);
     }
+    console.log(selectedImages);
   };
-
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
   return (
     <div className="page">
       <h1>GiftGuru</h1>
@@ -50,7 +55,7 @@ for (let i in response['pins']) {
         <button className="back">Back</button>
       </Link>
       <div className="image-grid">
-        {images.map((image, index) => (
+        {pins.map((image, index) => (
           <div key={image['id']}>
             <img src={image['img']} alt = 'Gift'
             className={`image-wrapper ${selectedImages.includes(index) ? 'selected' : ''}`}
@@ -64,6 +69,7 @@ for (let i in response['pins']) {
         </Link>
     </div>
   );
+
 };
 
 export default ImageGrid;
