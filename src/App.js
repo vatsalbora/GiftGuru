@@ -1,33 +1,27 @@
 import React from "react";
-import './App.css';
-import Start from './components/start';
-import Home from './components/home';
-import Choices from './components/choices';
-import Profile from './components/profile';
-import Requirements from './components/requirements';
-import Recommendations from './components/recommendations';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import Choices1 from './components/choices-temp';
-import Recommendations1 from './components/recommendations-temp';
+import "./App.css";
+import Start from "./components/start";
+import Home from "./components/home";
+import Choices from "./components/choices";
+import Profile from "./components/profile";
+import Requirements from "./components/requirements";
+import Recommendations from "./components/recommendations";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className = "App">
+    <div className="App">
       <Router>
         <Routes>
-            <Route path='/' element={<Start />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/choices' element={<Choices />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/requirements' element={<Requirements />} />
-            <Route path='/recommendations' element={<Recommendations />} />
-            
-            <Route path='/choices-temp' element={<Choices1 />} />
-            <Route path='/recommendations-temp' element={<Recommendations1 />} />
+          <Route path="/" element={<Start />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/choices" element={<Choices />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/requirements" element={<Requirements />} />
+          <Route path="/recommendations" element={<Recommendations />} />
         </Routes>
       </Router>
-      </div>
+    </div>
   );
 }
 
