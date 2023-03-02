@@ -1,36 +1,53 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './styles.css';
 import { Link } from 'react-router-dom'
 import LogoutButton from './logout.js'
+import { StateContext } from '../App';
+import axios from 'axios';
 
 function Recommendations() {
-    const images = [
-        require("../images/options/image11.png"),
-        require("../images/options/image12.png"),
-        require("../images/options/image13.png"),
-        require("../images/options/image14.png")
-    ];
 
-    // const handleImageClick = (index) => {
-    //     if (selectedImages.includes(index)) {
-    //       setSelectedImages(selectedImages.filter(i => i !== index));
-    //     } else {
-    //       setSelectedImages([...selectedImages, index]);
-    //     }
-    // };
+    const [isLoading, setLoading] = useState(true);
+    const [pins, setPins] = useState();
+    const { state, setState } = useContext(StateContext);
+    
+    if (state == null) {
+        return <div className="App">User state does not exist, please go to choices page...</div>;
+    }
+    // TODO: deal with null conditions, redirect or something
+    var bodyFormData = new FormData();
+    bodyFormData.append('state', state.state);
+    bodyFormData.append('choices', state.choices);
+    useEffect(() => {
+        // axios.put("/get_recomendations").then(response => {
+        axios.put("/seed").then(response => {
+            let images = [];
+            for (let i in response.data['pins']) {
+                let image = response.data['pins'][i];
+                image['id'] = i;
+                images.push(image);
+            }
+            images = images.slice(0,4);
+            setState(state => ({ choices: [], state: response.data['state'] }));
+            setPins(images);
+            setLoading(false);
+        }, bodyFormData);
+    }, []);
+    if (isLoading) {
+        return <div className="App">Loading...</div>;
+    }
 
     return (
         <div className="page">
             <h1>GiftGuru</h1>
             <p>Here are our recommendations!</p>
-            <LogoutButton/>
+            <LogoutButton />
             <div className="recommendation-grid">
-                {images.map((image, index) => (
-                    <div key={index}>
-                        <img src={image} alt = 'Gift'
-                        className="image-wrapper"
-                        // onClick={() => handleImageClick(index)} 
-                    />
+                {pins.map((image, index) => (
+                    <div key={image['id']}>
+                        <img src={image['img']} alt='Gift'
+                            className="image-wrapper"
+                        />
                     </div>
                 ))}
             </div>
@@ -40,7 +57,7 @@ function Recommendations() {
             <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
                 <button className="submit">Dashboard</button>
             </Link>
-        </div> 
+        </div>
     );
 }
 

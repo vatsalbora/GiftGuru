@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './styles.css';
 import LogoutButton from './logout.js';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import { StateContext } from '../App';
 
 const ImageGrid = () => {
   const data = {
@@ -14,6 +15,7 @@ const ImageGrid = () => {
   const [selectedImages, setSelectedImages] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [pins, setPins] = useState();
+  const {state, setState} = useContext(StateContext);
 
   useEffect(() => {
     axios.put("/seed").then(response => {
@@ -23,6 +25,7 @@ const ImageGrid = () => {
           image['id'] = i;
           images.push(image);
         }
+        setState(state => ({choices: [], state: response.data['state']}));
         setPins(images);
         setLoading(false);
     }, bodyFormData);
@@ -38,7 +41,9 @@ const ImageGrid = () => {
       delete copy[image['id']];
       setSelectedImages(selectedImages => (copy));
     }
-    console.log(selectedImages);
+    setState(state => ({ choices: selectedImages, state: state.state }));
+    console.log(state);
+    // console.log(selectedImages);
   };
   if (isLoading) {
     return <div className="App">Loading...</div>;
