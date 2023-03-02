@@ -10,12 +10,17 @@ const ImageGrid = () => {
     state: ''
   };
 
-  var bodyFormData = new FormData();
-  bodyFormData.append('state', '');
   const [selectedImages, setSelectedImages] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [pins, setPins] = useState();
   const {state, setState} = useContext(StateContext);
+  var bodyFormData = new FormData();
+  if (state) {
+    console.log(`The current state is: ${state.state}`);
+    bodyFormData.append('state', state.state);
+  } else {
+    bodyFormData.append('state', '');
+  }
 
   useEffect(() => {
     axios.put("/seed").then(response => {

@@ -51,7 +51,7 @@ function Recommendations() {
                     </div>
                 ))}
             </div>
-            <Link to="/choices-temp" style={{ textDecoration: 'none', color: '#FFF' }}>
+            <Link to="/choices" style={{ textDecoration: 'none', color: '#FFF' }}>
                 <button className="submit">Refresh</button>
             </Link>
             <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
