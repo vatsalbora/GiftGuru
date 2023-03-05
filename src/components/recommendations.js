@@ -15,12 +15,9 @@ function Recommendations() {
         return <div className="App">User state does not exist, please go to choices page...</div>;
     }
     // TODO: deal with null conditions, redirect or something
-    var bodyFormData = new FormData();
-    bodyFormData.append('state', state.state);
-    bodyFormData.append('choices', state.choices);
     useEffect(() => {
         // axios.put("/get_recomendations").then(response => {
-        axios.put("/seed").then(response => {
+        axios.put("/get_recomendations", state == null ? {state: '', choices: []} : state).then(response => {
             let images = [];
             for (let i in response.data['pins']) {
                 let image = response.data['pins'][i];
@@ -31,7 +28,7 @@ function Recommendations() {
             setState(state => ({ choices: [], state: response.data['state'] }));
             setPins(images);
             setLoading(false);
-        }, bodyFormData);
+        });
     }, []);
     if (isLoading) {
         return <div className="App">Loading...</div>;
@@ -45,9 +42,11 @@ function Recommendations() {
             <div className="recommendation-grid">
                 {pins.map((image, index) => (
                     <div key={image['id']}>
-                        <img src={image['img']} alt='Gift'
-                            className="image-wrapper"
-                        />
+                        <a href={image['link']} >
+                            <img src={image['img']} alt='Gift'
+                                className="image-wrapper"
+                            />
+                        </a>
                     </div>
                 ))}
             </div>

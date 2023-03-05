@@ -6,24 +6,14 @@ import axios from 'axios';
 import { StateContext } from '../App';
 
 const ImageGrid = () => {
-  const data = {
-    state: ''
-  };
 
   const [selectedImages, setSelectedImages] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [pins, setPins] = useState();
   const {state, setState} = useContext(StateContext);
-  var bodyFormData = new FormData();
-  if (state) {
-    console.log(`The current state is: ${state.state}`);
-    bodyFormData.append('state', state.state);
-  } else {
-    bodyFormData.append('state', '');
-  }
-
+  
   useEffect(() => {
-    axios.put("/seed").then(response => {
+    axios.put("/seed", state == null ? {state: '', choices: []} : state).then(response => {
         let images = [];
         for (let i in response.data['pins']) {
           let image = response.data ['pins'][i];
@@ -33,7 +23,7 @@ const ImageGrid = () => {
         setState(state => ({choices: [], state: response.data['state']}));
         setPins(images);
         setLoading(false);
-    }, bodyFormData);
+    });
   }, []);
 
   const checkmark = require("../images/checkmark.png");

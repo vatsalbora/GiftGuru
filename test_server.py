@@ -13,6 +13,9 @@ with open('example.json') as file:
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def home():
+    return 'server running..'
 
 @app.route('/seed', methods=['PUT'])
 def seed():
@@ -40,4 +43,4 @@ def get_recomendations():
     return example
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=8080)
