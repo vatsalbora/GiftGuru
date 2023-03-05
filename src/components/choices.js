@@ -17,10 +17,10 @@ const ImageGrid = () => {
         let images = [];
         for (let i in response.data['pins']) {
           let image = response.data ['pins'][i];
-          image['id'] = i;
+          // console.log(image);
           images.push(image);
         }
-        setState(state => ({choices: [], state: response.data['state']}));
+        setState(state => ({ choices: state == null ? {} : state.choices, state: response.data['state'] }));
         setPins(images);
         setLoading(false);
     });
@@ -31,15 +31,15 @@ const ImageGrid = () => {
   const handleImageClick = (image) => {
     if (!(image['id'] in selectedImages)) {
       setSelectedImages(selectedImages => ({...selectedImages, [image['id']]: image}));
+      setState(state => ({ choices: {...selectedImages, [image['id']]: image}, state: state.state }));
     } else {
       let copy = {...selectedImages};
       delete copy[image['id']];
       setSelectedImages(selectedImages => (copy));
+      setState(state => ({ choices: copy, state: state.state }));
     }
-    setState(state => ({ choices: selectedImages, state: state.state }));
-    console.log(state);
-    // console.log(selectedImages);
   };
+  
   if (isLoading) {
     return <div className="App">Loading...</div>;
   }

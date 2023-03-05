@@ -25,7 +25,7 @@ function Recommendations() {
                 images.push(image);
             }
             images = images.slice(0,4);
-            setState(state => ({ choices: [], state: response.data['state'] }));
+            setState(state => ({ choices: state == null ? {} : state.choices, state: response.data['state'] }));
             setPins(images);
             setLoading(false);
         });
