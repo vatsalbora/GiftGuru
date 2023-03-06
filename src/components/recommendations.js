@@ -11,12 +11,8 @@ function Recommendations() {
     const [pins, setPins] = useState();
     const { state, setState } = useContext(StateContext);
     
-    if (state == null) {
-        return <div className="App">User state does not exist, please go to choices page...</div>;
-    }
-    // TODO: deal with null conditions, redirect or something
+    
     useEffect(() => {
-        // axios.put("/get_recomendations").then(response => {
         axios.put("/get_recomendations", state == null ? {state: '', choices: []} : state).then(response => {
             let images = [];
             for (let i in response.data['pins']) {

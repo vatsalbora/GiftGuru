@@ -17,7 +17,6 @@ const ImageGrid = () => {
         let images = [];
         for (let i in response.data['pins']) {
           let image = response.data ['pins'][i];
-          // console.log(image);
           images.push(image);
         }
         setState(state => ({ choices: state == null ? {} : state.choices, state: response.data['state'] }));
@@ -39,7 +38,7 @@ const ImageGrid = () => {
       setState(state => ({ choices: copy, state: state.state }));
     }
   };
-  
+
   if (isLoading) {
     return <div className="App">Loading...</div>;
   }
