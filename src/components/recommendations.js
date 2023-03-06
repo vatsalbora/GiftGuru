@@ -38,7 +38,7 @@ function Recommendations() {
             <div className="recommendation-grid">
                 {pins.map((image, index) => (
                     <div key={image['id']}>
-                        <a href={image['link']} >
+                        <a href={image['link']} target="_blank">
                             <img src={image['img']} alt='Gift'
                                 className="image-wrapper"
                             />
