@@ -9,7 +9,7 @@ function Home() {
             <div className="text">
                 <h1>Hi there!</h1>
                 <LogoutButton/>
-                <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>
+                <Link to="/choices" style={{ textDecoration: 'none', color: '#FFF' }}>
                     <button className="submit">Let's find a gift!</button>
                 
                 </Link>

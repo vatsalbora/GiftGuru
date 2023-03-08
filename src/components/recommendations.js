@@ -34,6 +34,7 @@ function Recommendations() {
         <div className="page">
             <h1>GiftGuru</h1>
             <p>Here are our recommendations!</p>
+            <p>If you are not satisfied click "Continue search" to improve recommendations</p>
             <LogoutButton />
             <div className="recommendation-grid">
                 {pins.map((image, index) => (
@@ -47,10 +48,10 @@ function Recommendations() {
                 ))}
             </div>
             <Link to="/choices" style={{ textDecoration: 'none', color: '#FFF' }}>
-                <button className="submit">Refresh</button>
+                <button className="submit">Continue search</button>
             </Link>
             <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
-                <button className="submit">Dashboard</button>
+                <button className="submit">Home</button>
             </Link>
         </div>
     );

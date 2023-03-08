@@ -45,7 +45,7 @@ const ImageGrid = () => {
   return (
     <div className="page">
       <h1>GiftGuru</h1>
-      <p>Select what you think the gift recipient might like!</p>
+      <p>Select images that you think the gift recipient might have posted or liked on their social media</p>
       <LogoutButton/>
       <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>
         <button className="back">Back</button>
