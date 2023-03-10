@@ -1,49 +1,73 @@
-import React from "react";
-import "./styles.css";
-import { Link } from "react-router-dom";
-import LogoutButton from "./logout.js";
+
+import React, { useState, useEffect, useContext } from "react";
+import './styles.css';
+import { Link } from 'react-router-dom'
+import LogoutButton from './logout.js'
+import { StateContext } from '../App';
+import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
+import { RequirementsContext } from '../App';
 
 function Recommendations() {
-  const images = [
-    require("../images/options/image11.png"),
-    require("../images/options/image12.png"),
-    require("../images/options/image13.png"),
-    require("../images/options/image14.png"),
-  ];
 
-  // const handleImageClick = (index) => {
-  //     if (selectedImages.includes(index)) {
-  //       setSelectedImages(selectedImages.filter(i => i !== index));
-  //     } else {
-  //       setSelectedImages([...selectedImages, index]);
-  //     }
-  // };
+    const [isLoading, setLoading] = useState(true);
+    const [pins, setPins] = useState();
+    const { state, setState } = useContext(StateContext);
+    const { user } = useAuth0();
+    const { requirements, setRequirements } = useContext(RequirementsContext);
 
-  return (
-    <div className="page">
-      <h1>GiftGuru</h1>
-      <p>Here are our recommendations!</p>
-      <LogoutButton />
-      <div className="recommendation-grid">
-        {images.map((image, index) => (
-          <div key={index}>
-            <img
-              src={image}
-              alt="Gift"
-              className="image-wrapper"
-              // onClick={() => handleImageClick(index)}
-            />
-          </div>
-        ))}
-      </div>
-      <Link to="/choices" style={{ textDecoration: "none", color: "#FFF" }}>
-        <button className="submit">Refresh</button>
-      </Link>
-      <Link to="/home" style={{ textDecoration: "none", color: "#FFF" }}>
-        <button className="submit">Dashboard</button>
-      </Link>
-    </div>
-  );
+    useEffect(() => {
+        axios.put("/get_recomendations", state == null ? {state: '', choices: []} : state).then(response => {
+            let images = [];
+            for (let i in response.data['pins']) {
+                let image = response.data['pins'][i];
+                image['id'] = i;
+                images.push(image);
+            }
+            images = images.slice(0,4);
+            setState(state => ({ choices: state == null ? {} : state.choices, state: response.data['state'] }));
+            setPins(images);
+            setLoading(false);
+        });
+    }, []);
+    if (isLoading) {
+        return <div className="page">Loading...</div>;
+    }
+
+    const handleSubmit = () => {
+        console.log(requirements);
+        if (state && requirements) {
+            axios.put("/get_profiles", {state: state.state, email: user.email, name: requirements.name});
+        }
+    };
+    return (
+        <div className="page">
+            <h1>GiftGuru</h1>
+            <p>Here are our recommendations!</p>
+            <p>If you are not satisfied click "Continue search" to improve recommendations</p>
+            <LogoutButton />
+            <div className="recommendation-grid">
+                {pins.map((image, index) => (
+                    <div key={image['id']}>
+                        <a href={image['link']} target="_blank">
+                            <img src={image['img']} alt='Gift'
+                                className="image-wrapper"
+                            />
+                        </a>
+                    </div>
+                ))}
+            </div>
+            <Link to="/choices" style={{ textDecoration: 'none', color: '#FFF' }}>
+                <button className="submit">Continue search</button>
+            </Link>
+            <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
+                <button className="submit">Home</button>
+            </Link>
+            <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
+                <button className="submit" onClick={() => handleSubmit()}>Save profile</button>
+            </Link>
+        </div>
+    );
 }
 
 export default Recommendations;

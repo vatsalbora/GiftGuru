@@ -1,62 +1,71 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './styles.css';
 import LogoutButton from './logout.js';
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { StateContext } from '../App';
 
 const ImageGrid = () => {
-  const images = [
-    require("../images/options/image1.png"),
-    require("../images/options/image2.png"),
-    require("../images/options/image3.png"),
-    require("../images/options/image4.png"),
-    require("../images/options/image5.png"),
-    require("../images/options/image6.png"),
-    require("../images/options/image7.png"),
-    require("../images/options/image8.png"),
-    require("../images/options/image9.png"),
-    require("../images/options/image10.png")
-  ];
 
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState({});
+  const [isLoading, setLoading] = useState(true);
+  const [pins, setPins] = useState();
+  const {state, setState} = useContext(StateContext);
   
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // handle file submission here
-  // }
+  useEffect(() => {
+    axios.put("/seed", state == null ? {state: '', choices: []} : state).then(response => {
+        let images = [];
+        for (let i in response.data['pins']) {
+          let image = response.data ['pins'][i];
+          images.push(image);
+        }
+        setState(state => ({ choices: state == null ? {} : state.choices, state: response.data['state'] }));
+        setPins(images);
+        setLoading(false);
+    });
+  }, []);
 
   const checkmark = require("../images/checkmark.png");
 
-  const handleImageClick = (index) => {
-    if (selectedImages.includes(index)) {
-      setSelectedImages(selectedImages.filter(i => i !== index));
+  const handleImageClick = (image) => {
+    if (!(image['id'] in selectedImages)) {
+      setSelectedImages(selectedImages => ({...selectedImages, [image['id']]: image}));
+      setState(state => ({ choices: {...selectedImages, [image['id']]: image}, state: state.state }));
     } else {
-      setSelectedImages([...selectedImages, index]);
+      let copy = {...selectedImages};
+      delete copy[image['id']];
+      setSelectedImages(selectedImages => (copy));
+      setState(state => ({ choices: copy, state: state.state }));
     }
   };
 
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
   return (
     <div className="page">
       <h1>GiftGuru</h1>
-      <p>Select what you think the gift recipient might like!</p>
+      <p>Select images that you think the gift recipient might have posted or liked on their social media</p>
       <LogoutButton/>
       <Link to="/requirements" style={{ textDecoration: 'none', color: '#FFF' }}>
         <button className="back">Back</button>
       </Link>
       <div className="image-grid">
-        {images.map((image, index) => (
-          <div key={index}>
-            <img src={image} alt = 'Gift'
-            className={`image-wrapper ${selectedImages.includes(index) ? 'selected' : ''}`}
-            onClick={() => handleImageClick(index)} />
-            {selectedImages.includes(index) && (<img src={checkmark} alt="" className="checkmark"/>)}
+        {pins.map((image, index) => (
+          <div key={image['id']}>
+            <img src={image['img']} alt = 'Gift'
+            className={`image-wrapper ${( image['id'] in selectedImages ) ? 'selected' : ''}`}
+            onClick={() => handleImageClick(image)} />
+            {( image['id'] in selectedImages ) && (<img src={checkmark} alt="" className="checkmark"/>)}
           </div>
         ))}
       </div>
       <Link to="/recommendations" style={{ textDecoration: 'none', color: '#FFF' }}>
         <button className="submit">Submit</button>
-        </Link>
+      </Link>
     </div>
   );
+
 };
 
 export default ImageGrid;
