@@ -18,6 +18,7 @@ function Requirements() {
             <input name="age" placeholder="Recipient's Age" required />
             <input name="budget" placeholder="What is your budget?" required />
             <input name="pinterest" placeholder="Recipient's Pinterest profile link (if applicable)" />
+
         </form>
         <Link to="/choices" style={{ textDecoration: 'none', color: '#FFF' }}>
           <button className="submit">Submit</button>

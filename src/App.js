@@ -8,9 +8,7 @@ import Requirements from './components/requirements';
 import Recommendations from './components/recommendations';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Choices1 from './components/choices-temp';
 import Recommendations1 from './components/recommendations-temp';
-
 export const StateContext = React.createContext(null);
 export const RequirementsContext = React.createContext(null);
 
@@ -31,8 +29,6 @@ function App() {
               <Route path='/profile' element={<Profile />} />
               <Route path='/requirements' element={<Requirements />} />
               <Route path='/recommendations' element={<Recommendations />} />
-              <Route path='/choices-temp' element={<Choices1 />} />
-              <Route path='/recommendations-temp' element={<Recommendations1 />} />
         </Routes>
       </Router>
       </RequirementsContext.Provider>
