@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom'
 import LogoutButton from './logout.js'
 import { StateContext } from '../App';
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
+import { RequirementsContext } from '../App';
 
 function Recommendations() {
 
     const [isLoading, setLoading] = useState(true);
     const [pins, setPins] = useState();
     const { state, setState } = useContext(StateContext);
-    
-    
+    const { user } = useAuth0();
+    const { requirements, setRequirements } = useContext(RequirementsContext);
+
     useEffect(() => {
         axios.put("/get_recomendations", state == null ? {state: '', choices: []} : state).then(response => {
             let images = [];
@@ -27,9 +30,15 @@ function Recommendations() {
         });
     }, []);
     if (isLoading) {
-        return <div className="App">Loading...</div>;
+        return <div className="page">Loading...</div>;
     }
 
+    const handleSubmit = () => {
+        console.log(requirements);
+        if (state && requirements) {
+            axios.put("/get_profiles", {state: state.state, email: user.email, name: requirements.name});
+        }
+    };
     return (
         <div className="page">
             <h1>GiftGuru</h1>
@@ -52,6 +61,9 @@ function Recommendations() {
             </Link>
             <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
                 <button className="submit">Home</button>
+            </Link>
+            <Link to="/home" style={{ textDecoration: 'none', color: '#FFF' }}>
+                <button className="submit" onClick={() => handleSubmit()}>Save profile</button>
             </Link>
         </div>
     );

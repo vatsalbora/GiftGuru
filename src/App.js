@@ -12,14 +12,17 @@ import Choices1 from './components/choices-temp';
 import Recommendations1 from './components/recommendations-temp';
 
 export const StateContext = React.createContext(null);
+export const RequirementsContext = React.createContext(null);
 
 
 
 function App() {
   const [state, setState] = useState(null);
+  const [requirements, setRequirements] = useState(null);
   return (
     <div className = "App">
       <StateContext.Provider value={{ state: state, setState: setState }}>
+      <RequirementsContext.Provider value={{ requirements: requirements, setRequirements: setRequirements }}>
       <Router>
         <Routes>
               <Route path='/' element={<Start />} />
@@ -32,6 +35,7 @@ function App() {
               <Route path='/recommendations-temp' element={<Recommendations1 />} />
         </Routes>
       </Router>
+      </RequirementsContext.Provider>
       </StateContext.Provider>
       </div>
   );

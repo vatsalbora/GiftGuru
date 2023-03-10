@@ -29,6 +29,23 @@
   width: 8rem;
   height: 3rem;
 }
+.profiles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  border-radius: 50px;
+  background-color: aliceblue;  
+}
+
+.profiles:hover {
+  border: 1px solid #333;
+}
+
+.profiles p {
+  font-size: 25px;
+  color: black;
+}
 .submit {
   height: 3rem;
   font-size: 1.2rem;

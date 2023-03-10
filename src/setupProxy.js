@@ -17,4 +17,12 @@ module.exports = function(app) {
       secure: false
     })
   );
+  app.use(
+    '/get_profiles',
+    createProxyMiddleware({
+      target: 'http://giftguru.loclx.io/',
+      changeOrigin: true,
+      secure: false
+    })
+  );
 };
