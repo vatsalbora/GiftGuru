@@ -8,7 +8,7 @@ import Requirements from './components/requirements';
 import Recommendations from './components/recommendations';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Recommendations1 from './components/recommendations-temp';
+
 export const StateContext = React.createContext(null);
 export const RequirementsContext = React.createContext(null);
 
