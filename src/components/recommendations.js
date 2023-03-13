@@ -54,7 +54,8 @@ function Recommendations() {
     <div className="page">
       <h1>GiftGuru</h1>
       <p style={{ fontSize: "30px" }}>
-        Here are our recommendations! To get more, click on 'Continue search'!
+        Here are our recommendations! To get different ones, click on 'Continue
+        search'!
       </p>
       <LogoutButton />
       <div className="recommendation-grid">

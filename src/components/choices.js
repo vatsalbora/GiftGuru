@@ -55,7 +55,7 @@ const ImageGrid = () => {
   return (
     <div className="page">
       <h1>GiftGuru</h1>
-      <p>
+      <p style={{ fontSize: "35px" }}>
         Choose social media images the gift recipient may have posted or liked
       </p>
       <LogoutButton />
@@ -76,9 +76,6 @@ const ImageGrid = () => {
               }`}
               onClick={() => handleImageClick(image)}
             />
-            {image["id"] in selectedImages && (
-              <img src={checkmark} alt="" className="checkmark" />
-            )}
           </div>
         ))}
       </div>
