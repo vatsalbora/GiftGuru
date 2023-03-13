@@ -6,6 +6,60 @@ import { RequirementsContext } from "../App";
 
 function Requirements() {
   const { requirements, setRequirements } = useContext(RequirementsContext);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    budget: "",
+    pinterest: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({});
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name) {
+      errors.name = "Name is required";
+    } else if (!/^[a-zA-Z ]{2,50}$/.test(formData.name)) {
+      errors.name = "Invalid name";
+    }
+    if (!formData.age) {
+      errors.age = "Age is required";
+    } else if (!/^(?:1[0-4][0-9]|[0-9]{1,2})$|^(?:150)$/.test(formData.age)) {
+      errors.age = "Invalid age";
+    }
+    if (!formData.budget) {
+      errors.budget = "Budget is required";
+    }
+    if (!/^(?!^\d+$)[a-zA-Z0-9_]{3,30}$|^$/.test(formData.pinterest)) {
+      errors.pinterest = "Invalid Pinterest username";
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = (event) => {
+    console.log("Test");
+    event.preventDefault();
+    if (validateForm()) {
+      // submit the form data to the server
+    }
+  };
+
+  const handleInputChangeName = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+    setRequirements((requirements) => ({
+      ...requirements,
+      name: event.target.value,
+    }));
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <div className="page">
       <h1>GiftGuru</h1>
@@ -13,20 +67,29 @@ function Requirements() {
       <Link to="/home" style={{ textDecoration: "none", color: "#FFF" }}>
         <button className="back">Back</button>
       </Link>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           name="name"
           placeholder="Recipient's Name"
           required
-          onChange={(e) => {
-            setRequirements((requirements) => ({
-              ...requirements,
-              name: e.target.value,
-            }));
-          }}
+          value={formData.name}
+          onChange={handleInputChangeName}
         />
-        <input name="age" placeholder="Recipient's Age" required />
-        <select name="budget" required>
+        {formErrors.name && <span>{formErrors.name}</span>}
+        <input
+          name="age"
+          placeholder="Recipient's Age"
+          required
+          value={formData.age}
+          onChange={handleInputChange}
+        />
+        {formErrors.age && <span>{formErrors.age}</span>}
+        <select
+          name="budget"
+          required
+          value={formData.budget}
+          onChange={handleInputChange}
+        >
           <option value="" disabled selected>
             What is your budget? (CAD)
           </option>
@@ -36,13 +99,20 @@ function Requirements() {
           <option value="500">$200-$500</option>
           <option value="">&gt; $500</option>
         </select>
+        {formErrors.budget && <span>{formErrors.budget}</span>}
         <input
           name="pinterest"
           placeholder="Recipient's Pinterest username (if applicable)"
+          value={formData.pinterest}
+          onChange={handleInputChange}
         />
+        {formErrors.pinterest && <span>{formErrors.pinterest}</span>}
       </form>
       <Link to="/choices" style={{ textDecoration: "none", color: "#FFF" }}>
-        <button className="submit">Submit</button>
+        {/* <button type="submit" disabled={!validateForm()}> */}
+        <button type="submit" className="submit">
+          Submit
+        </button>
       </Link>
     </div>
   );
