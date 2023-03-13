@@ -3,6 +3,7 @@
     background-image: url("../images/background.png");
     background-size: "cover";
     align-items: center;
+    font-family: 'Arial';
   }
 .login {
   padding: 20px 160px;
@@ -91,7 +92,8 @@ form input, form select {
   border-color: #333;
 }
 .image-wrapper.selected {
-  border-color: #333;
+  border-color: #00D100;
+  border-width: 3px;
 }
 img {
   width: 250px;
@@ -131,6 +133,7 @@ img {
   align-items: center;
   width: 100%;
   height: 100vh;
+  font-family: 'Arial';
 }
 .text {
   flex: 1;
