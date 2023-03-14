@@ -28,25 +28,7 @@
   width: 8rem;
   height: 3rem;
 }
-.profiles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 250px;
-  border-radius: 50px;
-  background-color: aliceblue;  
-}
-
-.profiles:hover {
-  border: 1px solid #333;
-}
-
-.profiles p {
-  font-size: 25px;
-  color: black;
-}
 .submit {
-  height: 3rem;
   font-size: 1.2rem;
   color: #fff;
   background: #635dff;
@@ -126,28 +108,54 @@ img {
 }
 .container {
   display: flex;
-  flex-direction: row;
   text-align: center;
   background-image: url("../images/background.png");
   background-size: "cover";
   align-items: center;
-  width: 100%;
   height: 100vh;
   font-family: 'Arial';
+  flex-wrap: wrap;
 }
 .text {
-  flex: 1;
-  padding: 20px;
+  width: 50%;
+  height: 150px;
+  box-sizing: border-box;
 }
 .image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50%;
+  height: 300px;
+  box-sizing: border-box;
 }
 .image img {
   max-width: 100%;
   height: auto;
   height: 500px;
   width: 700px;
+}
+.profile-grid {
+  height: 150px;
+  box-sizing: border-box;
+  text-align: left;
+  padding-left: 30px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+.profile-image-grid{
+  display: flex;
+  flex-direction: row;
+  grid-gap: 20px;
+}
+.profiles img:hover {
+  border: 1px solid #333;
+}
+.profiles p {
+  font-size: 25px;
+  color: black;
+  text-align: center;
+}
+.profiles img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50px;
 }
