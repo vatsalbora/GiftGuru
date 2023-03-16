@@ -142,10 +142,15 @@ img {
   flex-direction: row;
   grid-gap: 20px;
 }
+
+.profiles {
+  text-align:center;
+}
+
 .profiles img:hover {
   border: 1px solid #333;
 }
-.profiles p {
+.profile-name {
   font-size: 25px;
   color: black;
   text-align: center;
@@ -154,4 +159,23 @@ img {
   height: 150px;
   width: 150px;
   border-radius: 50px;
+}
+.delete {
+  float: right;
+  justify-content: right;
+}
+
+.delete:hover {
+  opacity: 0.4;
+  font-size: 1em;
+}
+.delete:before, .close:after {
+  content: ' ';
+  background-color: #333;
+}
+.delete:before {
+  transform: rotate(45deg);
+}
+.delete:after {
+  transform: rotate(-45deg);
 }

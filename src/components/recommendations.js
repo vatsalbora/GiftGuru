@@ -42,7 +42,7 @@ function Recommendations() {
 
   const handleSubmit = () => {
     console.log(requirements);
-    if (state && requirements) {
+    if (user && state && requirements) {
       axios.put("/get_profiles", {
         state: state.state,
         email: user.email,
