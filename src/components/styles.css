@@ -146,10 +146,15 @@ img {
   flex-direction: row;
   grid-gap: 20px;
 }
+
+.profiles {
+  text-align:center;
+}
+
 .profiles img:hover {
   border: 1px solid #333;
 }
-.profiles p {
+.profile-name {
   font-size: 25px;
   color: black;
   text-align: center;

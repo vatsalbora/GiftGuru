@@ -101,7 +101,7 @@ function Home() {
                   color: "#FFF",
                 }}
               >
-                <p>{profile["name"]}</p>
+                <div className="profile-name">{profile["name"]}</div>
                 <img src={require("../images/blue-head.jpg")}></img>
               </Link>
             </div>
