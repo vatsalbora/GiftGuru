@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import LogoutButton from "./logout.js";
@@ -9,8 +9,8 @@ import { StateContext } from "../App";
 function Home() {
   const { user } = useAuth0();
   const [profiles, setProfiles] = useState();
+  const { setState } = useContext(StateContext);
   const [isLoading, setLoading] = useState(true);
-  const { state, setState } = useContext(StateContext);
 
   useEffect(() => {
     if (user) {
@@ -21,9 +21,21 @@ function Home() {
           setLoading(false);
         });
     }
-  }, [user]);
+  }, [user, isLoading]);
 
-  if (isLoading) {
+  const handleDelete = (profile) => {
+    if (profiles && profile) {
+      axios.post("/get_profiles", {
+        email: profile['email'],
+        name: profile['name'],
+        state: profile['state']
+      }).then(() =>
+        setLoading(true)
+      );
+    }
+  };
+
+  if (!(!isLoading && profiles && profiles.length > 0)) {
     return (
       <div className="container">
         <div className="text">
@@ -47,6 +59,7 @@ function Home() {
   }
 
   const handleImageClick = (profile) => {
+    console.log(profile);
     setState((state) => ({ choices: [], state: profile["state"] }));
   };
   return (
@@ -77,6 +90,9 @@ function Home() {
         <div className="profile-image-grid">
           {profiles.map((profile, index) => (
             <div key={profile["state"]} className="profiles">
+              <div className="delete"
+                  onClick={() => handleDelete(profile)}
+              > x </div>
               <Link
                 to="/recommendations"
                 onClick={() => handleImageClick(profile)}

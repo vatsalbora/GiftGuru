@@ -159,3 +159,22 @@ img {
   width: 150px;
   border-radius: 50px;
 }
+.delete {
+  float: right;
+  justify-content: right;
+}
+
+.delete:hover {
+  opacity: 0.4;
+  font-size: 1em;
+}
+.delete:before, .close:after {
+  content: ' ';
+  background-color: #333;
+}
+.delete:before {
+  transform: rotate(45deg);
+}
+.delete:after {
+  transform: rotate(-45deg);
+}
