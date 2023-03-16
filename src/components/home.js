@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext  } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import LogoutButton from "./logout.js";
@@ -25,13 +25,13 @@ function Home() {
 
   const handleDelete = (profile) => {
     if (profiles && profile) {
-      axios.post("/get_profiles", {
-        email: profile['email'],
-        name: profile['name'],
-        state: profile['state']
-      }).then(() =>
-        setLoading(true)
-      );
+      axios
+        .post("/get_profiles", {
+          email: profile["email"],
+          name: profile["name"],
+          state: profile["state"],
+        })
+        .then(() => setLoading(true));
     }
   };
 
@@ -82,7 +82,7 @@ function Home() {
           style={{
             fontSize: "30px",
             textDecoration: "underline",
-            margin: "0",
+            // margin: "0",
           }}
         >
           Saved Gift Recipients
@@ -90,20 +90,27 @@ function Home() {
         <div className="profile-image-grid">
           {profiles.map((profile, index) => (
             <div key={profile["state"]} className="profiles">
-              <div className="delete"
-                  onClick={() => handleDelete(profile)}
-              > x </div>
               <Link
                 to="/recommendations"
                 onClick={() => handleImageClick(profile)}
                 style={{
                   textDecoration: "none",
                   color: "#FFF",
+                  textAlign: "center",
                 }}
               >
                 <div className="profile-name">{profile["name"]}</div>
                 <img src={require("../images/blue-head.jpg")}></img>
               </Link>
+              <div className="delete">
+                <img
+                  src={require("../images/delete.png")}
+                  onClick={() => handleDelete(profile)}
+                ></img>
+              </div>
+              {/* <div className="delete" onClick={() => handleDelete(profile)}>
+                x
+              </div> */}
             </div>
           ))}
         </div>
