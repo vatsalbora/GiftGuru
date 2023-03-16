@@ -55,8 +55,30 @@ function Requirements() {
     }));
   };
 
+  const handleInputChangeAge = (event) => {
+    const { age, value } = event.target;
+    setFormData({ ...formData, [age]: value });
+    setRequirements((requirements) => ({
+      ...requirements,
+      age: event.target.value,
+    }));
+  };
+  
+  const handleInputChangeBudget = (event) => {
+    const { budget, value } = event.target;
+    setFormData({ ...formData, [budget]: value });
+    setRequirements((requirements) => ({
+      ...requirements,
+      budget: event.target.value,
+    }));
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    setRequirements((requirements) => ({
+      ...requirements,
+      [name]: value,
+    }));
     setFormData({ ...formData, [name]: value });
   };
 
@@ -73,7 +95,7 @@ function Requirements() {
           placeholder="Recipient's Name"
           required
           value={formData.name}
-          onChange={handleInputChangeName}
+          onChange={handleInputChange}
         />
         {formErrors.name && <span>{formErrors.name}</span>}
         <input
