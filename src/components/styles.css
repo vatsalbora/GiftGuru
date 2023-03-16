@@ -10,7 +10,6 @@
   cursor: pointer; 
   font-size: 26px;
   border-radius: 10px;
-  border: 1px solid black;
   align-items: center;
   color: #fff;
   background: #635dff;
@@ -22,7 +21,6 @@
   cursor: pointer; 
   font-size: 20px;
   border-radius: 10px;
-  border: 1px solid black;
   color: #fff;
   background: #635dff;
   width: 8rem;
@@ -38,7 +36,6 @@
   height: 3rem;
   font-size: 1.5rem;
   border-radius: 10px;
-  border-width: thin;
   box-sizing: border-box;
 }
 form {
@@ -100,7 +97,6 @@ img {
   cursor: pointer; 
   font-size: 20px;
   border-radius: 10px;
-  border: 1px solid black;
   color: #fff;
   background: #635dff;
   width: 8rem;
