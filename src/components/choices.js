@@ -4,16 +4,29 @@ import LogoutButton from "./logout.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { StateContext } from "../App";
+import { RequirementsContext } from "../App";
 
 const ImageGrid = () => {
   const [selectedImages, setSelectedImages] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [pins, setPins] = useState();
+  const [reset, setReset] = useState(true);
   const { state, setState } = useContext(StateContext);
+  const { requirements  } = useContext(RequirementsContext);
 
   useEffect(() => {
     axios
-      .put("/seed", state == null ? { state: "", choices: [] } : state)
+      .put("/seed", state == null ? { 
+          state: "", 
+          choices: [],
+          budget: !!requirements?requirements['budget']:'',
+          name: !!requirements?requirements['name']:''
+      } : {
+          state: state.state,
+          choices: state.choices,
+          budget: !!requirements?requirements['budget']:'',
+          name: !!requirements?requirements['name']:''
+      })
       .then((response) => {
         let images = [];
         for (let i in response.data["pins"]) {
@@ -27,9 +40,8 @@ const ImageGrid = () => {
         setPins(images);
         setLoading(false);
       });
-  }, []);
+  }, [reset]);
 
-  const checkmark = require("../images/checkmark.png");
 
   const handleImageClick = (image) => {
     if (!(image["id"] in selectedImages)) {
@@ -85,6 +97,7 @@ const ImageGrid = () => {
       >
         <button className="submit">Submit</button>
       </Link>
+        <button className="submit" onClick={()=>setReset(reset => !reset)}>Reset Choices</button>
     </div>
   );
 };

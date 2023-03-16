@@ -18,7 +18,17 @@ function Recommendations() {
     axios
       .put(
         "/get_recomendations",
-        state == null ? { state: "", choices: [] } : state
+        state == null ? { state: "", 
+                          choices: [], 
+                          budget: requirements?requirements['budget']:'',
+                          name: requirements?requirements['name']:''
+                        } : 
+                        {
+                          state: state.state,
+                          choices: state.choices,
+                          budget: !!requirements?requirements['budget']:'',
+                          name: !!requirements?requirements['name']:''
+                        }
       )
       .then((response) => {
         let images = [];
@@ -47,6 +57,7 @@ function Recommendations() {
         state: state.state,
         email: user.email,
         name: requirements.name,
+        budget: requirements.budget
       });
     }
   };
