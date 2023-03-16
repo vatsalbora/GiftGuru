@@ -79,7 +79,7 @@ img {
   height: 250px;
   border-radius: 50px;
   cursor: pointer;
-}  
+}
 .checkmark {
   width: 100px;
   height: 100px;
@@ -140,15 +140,8 @@ img {
 .profile-image-grid{
   display: flex;
   flex-direction: row;
+  align-items: center;
   grid-gap: 20px;
-}
-
-.profiles {
-  text-align:center;
-}
-
-.profiles img:hover {
-  border: 1px solid #333;
 }
 .profile-name {
   font-size: 25px;
@@ -156,18 +149,21 @@ img {
   text-align: center;
 }
 .profiles img {
+  display:block;
+  margin: 0 auto;
   height: 150px;
   width: 150px;
   border-radius: 50px;
 }
-.delete {
-  float: right;
-  justify-content: right;
+.profiles img:hover {
+  border: 1px solid #333;
 }
-
-.delete:hover {
-  opacity: 0.4;
-  font-size: 1em;
+.delete {
+  cursor: pointer;
+}
+.delete img{
+  height: 30px;
+  width: 30px;
 }
 .delete:before, .close:after {
   content: ' ';
