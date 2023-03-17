@@ -26,3 +26,16 @@ form input[type="submit"] {
   background: #635dff;
   cursor: pointer;
 }
+
+@media all and (min-width:0px) and (max-width: 400px) {
+  .App {
+    font-size: 2em;
+  }
+
+  .image img {
+    height: 224px;
+    width: 224px;
+  }
+
+  /* put your css styles in here */
+}
