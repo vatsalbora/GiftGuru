@@ -30,6 +30,7 @@ function Home() {
           email: profile["email"],
           name: profile["name"],
           state: profile["state"],
+          budget: profile["budget"]
         })
         .then(() => setLoading(true));
     }
