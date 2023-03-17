@@ -189,6 +189,11 @@ img {
     font-size: 1.5rem;
   }
 
+  .text {
+    height: auto;
+    z-index: 10;
+  }
+
   h1 {
     padding-top: 2em;
   }
