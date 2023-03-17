@@ -11,8 +11,11 @@ function Home() {
   const [profiles, setProfiles] = useState();
   const { setState } = useContext(StateContext);
   const [isLoading, setLoading] = useState(true);
+  
+  
 
   useEffect(() => {
+    setState(state => ({ state: '', choices: ''}));
     if (user) {
       axios
         .get("/get_profiles", { params: { username: user.email } })
@@ -22,7 +25,6 @@ function Home() {
         });
     }
   }, [user, isLoading]);
-
   const handleDelete = (profile) => {
     if (profiles && profile) {
       axios
